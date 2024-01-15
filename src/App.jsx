@@ -1,5 +1,4 @@
 import Die from "./components/Die"
-import "./app.css"
 import React, {
 	useState,
 } from 'react';
