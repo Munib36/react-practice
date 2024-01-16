@@ -83,6 +83,7 @@ export default function App() {
 			setDiceArray(prevDice => {
 				return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
 			});
+			console.log("it shouldnt be true")
 		}
 	}
 
