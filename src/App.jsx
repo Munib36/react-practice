@@ -69,14 +69,15 @@ export default function App() {
 		}
 	}, [diceArray])
 
-	React.useEffect(() => {
-		allNewDice();
-	}, []);	
+	// React.useEffect(() => {
+	// 	allNewDice();
+	// }, []);	
 	function allNewDice() {
 		if(tenzies){
 			setDiceArray(prevDice => {
 				return prevDice.map({ on: false, value: ranNum() });
 			});
+			console.log("tenzies is true!!!")
 		}else{
 			setDiceArray(prevDice => {
 				return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
