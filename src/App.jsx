@@ -73,9 +73,15 @@ export default function App() {
 		allNewDice();
 	}, []);	
 	function allNewDice() {
-		setDiceArray(prevDice => {
-			return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
-		});
+		if(tenzies){
+			setDiceArray(prevDice => {
+				return prevDice.map(x => (x.on ? { ...x } : { on: false, value: ranNum() }));
+			});
+		}else{
+			setDiceArray(prevDice => {
+				return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
+			});
+		}
 	}
 
 
