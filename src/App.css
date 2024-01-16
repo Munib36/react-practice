@@ -42,6 +42,9 @@
 .Dice .active{
   background-color: #59E391;
 }
+.Dice .active:hover{
+  background-color: #46b170;
+}
 
 
 /* ! BUTTON COMPONENT */

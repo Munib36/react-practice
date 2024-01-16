@@ -1,5 +1,6 @@
 import Die from "./components/Die"
 import "./App.css"
+import Confetti from "react-confetti"
 import React, {
 	useState,
 } from 'react';
@@ -12,9 +13,9 @@ function ranNum() {
 function Title() {
 	return ( 
 		<div className = "Title" >
-			<h2 > Tenzies </h2> 
+			<h2> Tenzies </h2> 
 			<p> 
-				Roll until all dice are the same.Click each die to freeze it at its current value between rolls. 
+				Roll until all dice are the same. Click each die to freeze it at its current value between rolls. 
 			</p> 
 		</div>
 	)
@@ -25,7 +26,9 @@ function Button(props) {
 	return ( 
 		<div className = "Button" >
 			<button 
-			onClick = {props.handleClick}> Roll </button> 
+			onClick = {props.handleClick}>
+				{props.tenzies ? "reset game" : "roll"}
+			</button> 
 		</div>
 	)
 }
@@ -36,8 +39,9 @@ function Button(props) {
 
 
 export default function App() {
+	const [tenzies, setTenzies] = useState(false)
 	const [diceArray, setDiceArray] = useState([
-		{on: true, value: 1, id: 1},
+		{on: false, value: 1, id: 1},
 		{on: false, value: 1, id: 2},
 		{on: false, value: 1, id: 3},
 		{on: false, value: 1, id: 4},
@@ -50,21 +54,28 @@ export default function App() {
 		{on: false, value: 1, id: 10},
 
 	])
-
-
-
-	function allNewDice() {	
-		setDiceArray(prevDice => {
-			return prevDice.map(x => { 
-				if(x.on){
-					return( {...x})
-				}else{
-					return( {...x, value: ranNum()} )
+	React.useEffect(()=>{
+		let truth = 0;
+		for(let i = 0; i < diceArray.length; i++){
+			if(diceArray[i].on){
+				if(diceArray[0].value == diceArray[i].value){
+					truth++;
 				}
+			}
+			if(truth == 10){
+				
+				setTenzies(true)
+			}
+		}
+	}, [diceArray])
 
-			})
-		})
-		console.log(diceArray)
+	React.useEffect(() => {
+		allNewDice();
+	}, []);	
+	function allNewDice() {
+		setDiceArray(prevDice => {
+			return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
+		});
 	}
 
 
@@ -97,12 +108,14 @@ export default function App() {
 
 	return ( 
 		<main>
+			{tenzies && <Confetti />}
 			<Title />
 			<div className="Dice">
 				{dices}
 			</div>
 			<Button 
 				handleClick={allNewDice}
+				tenzies={tenzies}
 			/>
 		</main>
 	)
