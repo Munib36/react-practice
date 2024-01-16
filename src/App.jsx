@@ -69,9 +69,9 @@ export default function App() {
 		}
 	}, [diceArray])
 
-	// React.useEffect(() => {
-	// 	allNewDice();
-	// }, []);	
+	React.useEffect(() => {
+		allNewDice();
+	}, []);	
 	function allNewDice() {
 		if(tenzies){
 			setDiceArray(prevDice => {
