@@ -76,7 +76,7 @@ export default function App() {
 		if(tenzies){
 			setDiceArray(prevDice => {
 				setTenzies(false)
-				return prevDice.map(x => (x.on && { on: false, value: ranNum() }));
+				return prevDice.map(x => (x.on && {...x, on: false, value: ranNum() }));
 			});
 			console.log("tenzies is true!!!")
 		}else{
