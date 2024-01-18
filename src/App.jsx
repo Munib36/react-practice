@@ -10,13 +10,18 @@ function ranNum() {
 }
 
 
-function Title() {
+function Title(props) {
 	return ( 
 		<div className = "Title" >
 			<h2> Tenzies </h2> 
 			<p> 
-				Roll until all dice are the same. Click each die to freeze it at its current value between rolls. 
+				Roll until all dice are the same. Click each die to freeze it at its current value between rolls.
 			</p> 
+			<div class="stats">
+				<p>Count: <br/>{props.count}</p>
+				<p>Time: <br/>{props.time}</p>
+				<p>Best Count & Time: <span>{props.bestCount ? props.bestCount : "noob"}, {props.bestTime ? props.bestTime : "noob"}</span></p>
+			</div>
 		</div>
 	)
 }
@@ -39,6 +44,8 @@ function Button(props) {
 
 
 export default function App() {
+	const [count, setCount] = useState(0)
+	const [time, setTime] = useState(0)
 	const [tenzies, setTenzies] = useState(false)
 	const [diceArray, setDiceArray] = useState([
 		{on: false, value: 1, id: 1},
@@ -73,15 +80,19 @@ export default function App() {
 		allNewDice();
 	}, []);	
 	function allNewDice() {
-		if(tenzies){
+		// check if game is won first
+		if(tenzies){ //if the game is won, reset
 			setDiceArray(prevDice => {
 				setTenzies(false)
 				return prevDice.map(x => (x.on && {...x, on: false, value: ranNum() }));
 			});
-		}else{
+		}else{  //normal game
+			setCount(prev => prev+=1)
+			console.log(count)
 			setDiceArray(prevDice => {
 				return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
 			});
+			
 		}
 	}
 
@@ -116,7 +127,9 @@ export default function App() {
 	return ( 
 		<main>
 			{tenzies && <Confetti />}
-			<Title />
+			<Title 
+				count={count}
+			/>
 			<div className="Dice">
 				{dices}
 			</div>
