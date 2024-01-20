@@ -20,7 +20,6 @@ function Title(props) {
 			<div class="stats">
 				<p>Count: <br/>{props.count}</p>
 				<p>Time: <br/>{props.time}</p>
-				<p>Best Count & Time: <span>{props.bestCount ? props.bestCount : "noob"}, {props.bestTime ? props.bestTime : "noob"}</span></p>
 			</div>
 		</div>
 	)
@@ -31,7 +30,11 @@ function Button(props) {
 	return ( 
 		<div className = "Button" >
 			<button 
-			onClick = {props.handleClick}>
+			onClick = {() => {
+				props.handleClick(); 
+				props.startTime();
+			}}
+			>
 				{props.tenzies ? "reset game" : "roll"}
 			</button> 
 		</div>
@@ -44,7 +47,7 @@ function Button(props) {
 
 
 export default function App() {
-	const [count, setCount] = useState(0)
+	const [count, setCount] = useState(-2)
 	const [time, setTime] = useState(0)
 	const [tenzies, setTenzies] = useState(false)
 	const [diceArray, setDiceArray] = useState([
@@ -84,11 +87,11 @@ export default function App() {
 		if(tenzies){ //if the game is won, reset
 			setDiceArray(prevDice => {
 				setTenzies(false)
+				setCount(0)
 				return prevDice.map(x => (x.on && {...x, on: false, value: ranNum() }));
 			});
 		}else{  //normal game
 			setCount(prev => prev+=1)
-			console.log(count)
 			setDiceArray(prevDice => {
 				return prevDice.map(x => (x.on ? { ...x } : { ...x, value: ranNum() }));
 			});
@@ -124,6 +127,11 @@ export default function App() {
 
 
 
+
+	function startTime(){
+		console.log("time has started")
+	}
+
 	return ( 
 		<main>
 			{tenzies && <Confetti />}
@@ -136,6 +144,7 @@ export default function App() {
 			<Button 
 				handleClick={allNewDice}
 				tenzies={tenzies}
+				startTime={startTime}
 			/>
 		</main>
 	)
