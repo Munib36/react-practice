@@ -132,6 +132,7 @@ export default function App() {
 			/>
 			<div className="Dice">
 				{dices}
+				<img src={"./assets/dice2.png"}/>
 			</div>
 			<Button 
 				handleClick={allNewDice}
