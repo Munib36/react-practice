@@ -130,7 +130,9 @@ export default function App() {
 
 
 	function startTime(){
-		console.log("time has started")
+		setInterval(()=>{
+			console.log("penis")
+		}, 300)
 	}
 
 	return ( 
