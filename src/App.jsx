@@ -47,7 +47,7 @@ function Button(props) {
 
 
 export default function App() {
-	const [count, setCount] = useState(-2)
+	const [count, setCount] = useState(-1)
 	const [time, setTime] = useState(0)
 	const [tenzies, setTenzies] = useState(false)
 	const [diceArray, setDiceArray] = useState([
