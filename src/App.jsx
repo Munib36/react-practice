@@ -1,6 +1,8 @@
 import Die from "./components/Die"
 import "./App.css"
 import Confetti from "react-confetti"
+let timer = null;
+let on = false;
 import React, {
 	useState,
 } from 'react';
@@ -130,9 +132,18 @@ export default function App() {
 
 
 	function startTime(){
-		setInterval(()=>{
-			console.log("penis")
-		}, 300)
+		if(on){
+
+		}else{
+			if(tenzies){
+				clearInterval(timer)
+			}else{
+				timer = setInterval(()=>{
+				setTime(prev=>{prev++})
+				}, 1000)
+				on = true;	
+			}
+		}
 	}
 
 	return ( 
