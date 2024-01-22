@@ -151,6 +151,7 @@ export default function App() {
 			{tenzies && <Confetti />}
 			<Title 
 				count={count}
+				time={time}
 			/>
 			<div className="Dice">
 				{dices}
