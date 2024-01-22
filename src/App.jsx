@@ -119,6 +119,7 @@ export default function App() {
 				id={x.id}
 				on={x.on}
 				value={x.value}
+				image={`../public/dice${x.value}.png`}
 
 				handleClick={toggle}
 			/>
