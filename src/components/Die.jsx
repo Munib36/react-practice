@@ -1,5 +1,6 @@
 export default function Die(props) {
-    let image = `./../public/dice${props.value}.png`
+    // let image = `./../public/dice${props.value}.png`
+    let image = `../assets/dice${props.value}.png`
     return(
         <button
             className={props.on ? "active" : ""}
