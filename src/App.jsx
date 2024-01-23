@@ -3,6 +3,7 @@ import "./App.css"
 import Confetti from "react-confetti"
 let timer = null;
 let on = false;
+let truth = 0;
 import React, {
 	useState,
 } from 'react';
@@ -21,7 +22,7 @@ function Title(props) {
 			</p> 
 			<div class="stats">
 				<p>Count: <br/>{props.count}</p>
-				<p>Time: <br/>{props.time}</p>
+				<p>Time: <br/>{props.time}<span className="seconds">s</span></p>
 			</div>
 		</div>
 	)
@@ -67,7 +68,7 @@ export default function App() {
 
 	])
 	React.useEffect(()=>{
-		let truth = 0;
+		truth = 0;
 		for(let i = 0; i < diceArray.length; i++){
 			if(diceArray[i].on){
 				if(diceArray[0].value == diceArray[i].value){
@@ -86,7 +87,8 @@ export default function App() {
 	}, []);	
 	function allNewDice() {
 		// check if game is won first
-		if(tenzies){ //if the game is won, reset
+		if(tenzies){ //if the game is won, click to reset
+			setTime(0)
 			setDiceArray(prevDice => {
 				setTenzies(false)
 				setCount(0)
@@ -132,17 +134,37 @@ export default function App() {
 
 
 	function startTime(){
-		if(on){
-
-		}else{
-			if(tenzies){
-				clearInterval(timer)
-			}else{
-				timer = setInterval(()=>{
-				setTime(prev=>{prev++})
+		if(!on){
+			function action(){
+				setTimeout(()=>{
+					if(truth == 10){
+						console.log("NO")
+					}else{
+						setTime(prev => {
+							return (prev+=1)
+						})
+					}
+					action();
+					
 				}, 1000)
-				on = true;	
 			}
+
+
+			on = true;
+			action();
+
+
+			// if(tenzies){
+			// 	clearInterval(timer)
+			// }else{
+			// 	timer = setInterval(()=>{
+			// 	setTime(prev=>{
+			// 		console.log(time)
+			// 		return (prev+=1)
+			// 	})}, 1000)
+				
+			// 	on = true;	
+			// }
 		}
 	}
 

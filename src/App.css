@@ -19,6 +19,9 @@
   margin: 0;
   padding: 0;
 }
+span.seconds{
+  font-size: 0.7em;
+}
 
 /* ! DICE COMPONENT */
 .Dice{
